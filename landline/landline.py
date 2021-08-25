@@ -41,6 +41,9 @@ class Landline:
     # Private Methods
     """Private Methods are the internals of your Class, the cogs inside the watch"""
 
+    def __removeAllSpaces(self,gappyString):
+        return gappyString.replace(" ", "")
+
     def __removeCountryCallingCode(self):
         if re.search(r"^\+44\d{10}$", self._phoneNumber):
             self._phoneNumber = "0" + self._phoneNumber[3:]
@@ -48,9 +51,6 @@ class Landline:
             self._phoneNumber = "0" + self._phoneNumber[4:]
         else:
             None
-
-    def __removeAllSpaces(self,gappyString):
-        return gappyString.replace(" ", "")
 
     def __findGroupFormat(self):
         """Use RegEx to parse the phone number, returning a simple string pattern of the number format"""
@@ -119,7 +119,7 @@ class Landline:
         return None
 
     def __applyGroupFormat(self):
-        """Use string slicing split and rebuild the phone number"""
+        """Use substringing to split and rebuild the phone number"""
         """ The complete list of patterns:
         11 Digits
             5-6
