@@ -1,7 +1,7 @@
 """Split a UK Telephone Number into Area Code and Local Number"""
 import argparse
 import logging
-from landline import Landline, landline
+from landline import Landline
 
 def main():
     parser = argparse.ArgumentParser(   description="split uk telephone number into area code and local number",
@@ -28,7 +28,7 @@ def main():
 
     # create a landline object with the joined_telephone
     landline = Landline(joined_telephone)
-    print(landline.pretty)
+    print(landline.split(args.bracket_flag))
 
 if __name__ == "__main__":
     main()

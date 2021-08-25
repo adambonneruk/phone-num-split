@@ -153,7 +153,13 @@ class Landline:
             self._localNumber = self._phoneNumber[4:]
             self._prettyFormat =  self._areaCode + " " + self._localNumber
         else:
-            raise Exception("Invalid UK Pattern (not 5-6, 4-3-4 etc.)") 
+            raise Exception("Invalid UK Pattern (not 5-6, 4-3-4 etc.)")
 
     # Public Methods
     """Public Methods are better for expressing things that either change the state, they are watch's bezel/crown"""
+    def split(self,brackets: bool = False):
+        if brackets is True:
+            prettyNumber = re.sub("(\d+)(.+)","(\g<1>)\g<2>",self._prettyFormat)
+        else:
+            prettyNumber = self._prettyFormat
+        return prettyNumber
