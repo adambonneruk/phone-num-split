@@ -1,35 +1,34 @@
-"""split a given uk telephone number into standard area code and local number groups"""
+"""Split a UK Telephone Number into Area Code and Local Number"""
 import argparse
-from landline import Landline
+import logging
+from landline import Landline, landline
 
 def main():
-    """main cli-based unix-like tool"""
-    parser = argparse.ArgumentParser(description="Split a UK telephone number into Area Code and Local Number groups",
-                                     allow_abbrev=True, #Allows abbreviation if unambiguous
-                                     epilog="\"Split\" (Version 0.0.0) by Adam Bonner, 2021"
-                                     )
-    parser.add_argument('landlinenumber',
-                        metavar='<landline-number>',
+    parser = argparse.ArgumentParser(   description="split uk telephone number into area code and local number",
+                                        allow_abbrev=True, #Allows abbreviation if unambiguous
+                                        epilog="\"phone-num-split\" (version 0.0.0) by adam bonner, 2021")
+    parser.add_argument('telephone',
+                        metavar='<telephone_number>',
                         type=str,
-                        nargs=1,
-                        help="no help")
+                        nargs="+",
+                        help="enter a uk mainland telephone number")
+    parser.add_argument("-b", "--brackets", dest="bracket_flag",
+                        action="store_true", default="False",
+                        help="formatted number will include brackets")
     args = parser.parse_args()
 
-    # Raw Input
-    print("raw: " + str(args.landlinenumber))
+    #argparse returns an array, use join+map to serialise it:
+    joined_telephone = "".join(map(str,args.telephone))
 
-    # Raw Input (Specific Array Input)
-    print("ar0: " + args.landlinenumber[0])
+    # Log some behind-the-scenes config passed out of argparse
+    logging.basicConfig(format='%(message)s', level=logging.ERROR)
+    logging.debug("raw numbers:\t" + str(args.telephone))
+    logging.debug("joined num:\t" + str(joined_telephone))
+    logging.debug("brackets?:\t" + str(args.bracket_flag).lower())
 
-    # call Landline class with landline number argument
-    landline = Landline(args.landlinenumber[0])
-
-    # print formatted number
-    print("num: " + str(landline))
-    print("fmt: " + landline.format)
-    print("ptt: " + landline.pretty)
-    print("std: " + landline.areaCode)
-    print("loc: " + landline.localNumber)
+    # create a landline object with the joined_telephone
+    landline = Landline(joined_telephone)
+    print(landline.pretty)
 
 if __name__ == "__main__":
     main()
