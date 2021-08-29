@@ -2,11 +2,11 @@
 Split a UK Telephone Number into Area Code and Local Number
 
 ### Background
-UK telephone numbers have a long and complex history. Generally a UK phone number is 10-12 digits long and can be split into two halves. This utility uses pattern logic to derive where the split takes place.
+UK telephone numbers have a long and complex history. Generally a UK phone number is 8-12 digits long and can be split into two halves. This utility uses pattern logic to derive where the split takes place.
 
 Prefix | Type | Pattern
 ------ | ---- | -------
-01 | Landlines (geographic) | Various – see below
+01 | Landlines (geographic) | Various
 02 | Landlines (geographic) | 02x xxxx xxxx
 03 | Landlines (non-geographic) | 03xx xxx xxxx
 05 | Corporate numbering and VOIP | 05xxx xxxxxx
@@ -33,7 +33,7 @@ Prefix | Type | Pattern
 07712 345600
 
 # Should be robust against various input formats
-❯ .\phone_num_split.py 08 00 1 47 53 69
+❯ .\phone_num_split.py 08 00 1w 47 53 69
 0800 147 5369
 ```
 

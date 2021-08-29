@@ -6,7 +6,7 @@ from landline import Landline
 def main():
     parser = argparse.ArgumentParser(   description="split uk telephone number into area code and local number",
                                         allow_abbrev=True, #Allows abbreviation if unambiguous
-                                        epilog="\"phone-num-split\" (version 0.0.0) by adam bonner, 2021")
+                                        epilog="\"phone-num-split\" (version 1.0.0) by adam bonner, 2021")
     parser.add_argument('telephone',
                         metavar='<telephone_number>',
                         type=str,
