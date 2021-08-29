@@ -1,13 +1,19 @@
 import re
+import logging
+
+#logging.basicConfig(format='%(message)s', level=logging.DEBUG)
 
 class Landline:
     "Landline is a UK Landline Telephone Number"
     def __init__(self,phoneNumber):
+
         # sanitise the input and save the input phone number
-        self._phoneNumber = self.__removeAllSpaces(phoneNumber)
+        self._phoneNumber = self.__removeNonDigits(phoneNumber)
+        logging.debug("sanitised:\t" + self._phoneNumber) # All non digits removed (except "+")
 
         # if applicable, remove uk dialing code (+44)
         self.__removeCountryCallingCode()
+        logging.debug("no cc:\t" + self._phoneNumber) # country code removed
 
         # find the grouping format for the given phone number
         self.__findGroupFormat()
@@ -43,6 +49,9 @@ class Landline:
 
     def __removeAllSpaces(self,gappyString):
         return gappyString.replace(" ", "")
+
+    def __removeNonDigits(self,dirtyString):
+        return re.sub("(?!\+)\D","", dirtyString) #negative lookahead for +, then match on a non-digit
 
     def __removeCountryCallingCode(self):
         if re.search(r"^\+44\d{10}$", self._phoneNumber):
